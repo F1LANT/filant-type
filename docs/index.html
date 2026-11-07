@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Filant Type</title>
+    <meta name="description" content="Голосовой ввод по клавише для Windows. Зажмите клавишу, скажите фразу, отпустите: текст появится там, где стоит курсор. Распознавание без интернета." />
+    <meta property="og:title" content="Filant Type" />
+    <meta property="og:description" content="Голосовой ввод по клавише для Windows. Распознавание на вашем компьютере, без интернета." />
+    <meta property="og:image" content="assets/settings@2x.png" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <style>
+      /*
+       * Filant Type's download page, in the look of the app itself (Majestic Helper's palette:
+       * a flat neutral ramp and one red). Dark only, as the app is.
+       */
+      @font-face {
+        font-family: 'Manrope';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 200 800;
+        src: url('assets/fonts/manrope-cyrillic-wght-normal.woff2') format('woff2-variations');
+        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+      @font-face {
+        font-family: 'Manrope';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 200 800;
+        src: url('assets/fonts/manrope-latin-wght-normal.woff2') format('woff2-variations');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212;
+      }
+
+      :root {
+        color-scheme: dark;
+        --page: #0e0e0e;
+        --bg: #131313;
+        --surface: #171717;
+        --surface-2: #1a1a1a;
+        --line: #262626;
+        --line-soft: #1d1d1d;
+        --text: #f4f4f4;
+        --text-2: #a3a3a3;
+        --text-3: #8a8a8a;
+        --brand: #f93a64;
+        --brand-rgb: 249, 58, 100;
+        --brand-deep: #d92450;
+        --brand-lift: #ff5f83;
+        --green-text: #45cd63;
+        --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        --font: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+        --mono: 'Cascadia Mono', Consolas, monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background: var(--page);
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--page);
+        color: var(--text);
+        font-family: var(--font);
+        font-size: 16px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+      a {
+        color: inherit;
+      }
+      ::selection {
+        background: rgba(var(--brand-rgb), 0.32);
+      }
+      .wrap {
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* ───────────── Top ───────────── */
+      .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 68px;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: -0.2px;
+        text-decoration: none;
+      }
+      .brand img {
+        width: 30px;
+        height: 30px;
+      }
+      .toplink {
+        color: var(--text-2);
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition:
+          background 0.14s,
+          color 0.14s;
+      }
+      .toplink:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+      }
+
+      /* ───────────── Hero ───────────── */
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+        align-items: center;
+        gap: 56px;
+        padding: 48px 0 88px;
+      }
+      .hero__text {
+        animation: rise 0.6s var(--ease) both;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(38px, 5.4vw, 60px);
+        line-height: 1.04;
+        letter-spacing: -1.6px;
+        font-weight: 800;
+        max-width: 11ch;
+      }
+      h1 em {
+        font-style: normal;
+        color: var(--brand-lift);
+      }
+      .lead {
+        margin: 22px 0 0;
+        max-width: 40ch;
+        font-size: 18px;
+        color: var(--text-2);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin-top: 34px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        padding: 0 26px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, var(--brand), var(--brand-deep));
+        color: #fff;
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: 0.1px;
+        text-decoration: none;
+        white-space: nowrap;
+        box-shadow: 0 6px 24px rgba(var(--brand-rgb), 0.28);
+        transition:
+          filter 0.14s,
+          transform 0.14s;
+      }
+      .btn:hover {
+        filter: brightness(1.08);
+      }
+      .btn:active {
+        transform: translateY(1px);
+      }
+      .btn--ghost {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text-2);
+        box-shadow: none;
+        font-weight: 700;
+      }
+      .btn--ghost:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        filter: none;
+      }
+      .btn:focus-visible,
+      .toplink:focus-visible {
+        outline: 2px solid var(--brand-lift);
+        outline-offset: 3px;
+      }
+      .shot {
+        position: relative;
+        justify-self: end;
+        width: 100%;
+        max-width: 460px;
+        animation: rise 0.7s 0.08s var(--ease) both;
+      }
+      .shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      /* The app's own glow: a wash of its red behind the window. */
+      .shot::before {
+        content: '';
+        position: absolute;
+        inset: 12% 8% 10%;
+        z-index: -1;
+        background: radial-gradient(closest-side, rgba(var(--brand-rgb), 0.22), transparent);
+        filter: blur(30px);
+      }
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+      }
+
+      /* ───────────── Sections ───────────── */
+      section {
+        padding: 72px 0;
+        border-top: 1px solid var(--line-soft);
+      }
+      h2 {
+        margin: 0 0 12px;
+        font-size: clamp(28px, 3.4vw, 38px);
+        line-height: 1.12;
+        letter-spacing: -0.8px;
+        font-weight: 800;
+      }
+      .sub {
+        margin: 0;
+        max-width: 56ch;
+        color: var(--text-2);
+      }
+
+      /* The dictation, as the pill shows it: the app's own pill styles, live. */
+      .flow {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        margin-top: 44px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--bg);
+        overflow: hidden;
+      }
+      .flow__step {
+        padding: 30px 28px 32px;
+      }
+      .flow__step + .flow__step {
+        border-left: 1px solid var(--line);
+      }
+      .flow__step h3 {
+        margin: 22px 0 6px;
+        font-size: 19px;
+        letter-spacing: -0.2px;
+      }
+      .flow__step p {
+        margin: 0;
+        color: var(--text-2);
+        font-size: 15px;
+      }
+      .kbd {
+        display: inline-grid;
+        place-items: center;
+        min-width: 112px;
+        height: 38px;
+        padding: 0 16px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        box-shadow: 0 3px 0 #0a0a0a;
+        font-family: var(--mono);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        height: 38px;
+        padding: 0 16px 0 12px;
+        border-radius: 999px;
+        background: #131313;
+        border: 1px solid #2b2b2b;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .pill__dot {
+        position: relative;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--brand);
+      }
+      .pill__dot::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--brand);
+        animation: ring 1.3s ease-out infinite;
+      }
+      @keyframes ring {
+        from {
+          opacity: 0.55;
+          transform: scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: scale(2.6);
+        }
+      }
+      .pill__ok {
+        color: var(--green-text);
+      }
+
+      /* Points: a heading on the left, the words on the right, a hairline between groups. */
+      .points {
+        display: grid;
+        margin-top: 40px;
+      }
+      .point {
+        display: grid;
+        grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+        gap: 32px;
+        padding: 26px 0;
+        border-top: 1px solid var(--line-soft);
+      }
+      .point:last-child {
+        border-bottom: 1px solid var(--line-soft);
+      }
+      .point h3 {
+        margin: 0;
+        font-size: 20px;
+        letter-spacing: -0.3px;
+      }
+      .point p {
+        margin: 0;
+        max-width: 62ch;
+        color: var(--text-2);
+      }
+
+      /* Install */
+      .install {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+        gap: 56px;
+        align-items: start;
+      }
+      .steps {
+        margin: 32px 0 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: step;
+        display: grid;
+        gap: 22px;
+      }
+      .steps li {
+        counter-increment: step;
+        display: grid;
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 14px;
+        color: var(--text-2);
+      }
+      .steps li::before {
+        content: counter(step);
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: rgba(var(--brand-rgb), 0.12);
+        color: var(--brand-lift);
+        font-weight: 800;
+        font-size: 15px;
+      }
+      .steps b {
+        color: var(--text);
+        font-weight: 700;
+      }
+      .card {
+        padding: 26px;
+        border-radius: 16px;
+        border: 1px solid var(--line);
+        background: var(--bg);
+      }
+      .card h3 {
+        margin: 0 0 14px;
+        font-size: 17px;
+      }
+      .reqs {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+        color: var(--text-2);
+        font-size: 15px;
+      }
+      .reqs li {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .reqs span:last-child {
+        color: var(--text);
+        text-align: right;
+      }
+      .card .btn {
+        width: 100%;
+        margin-top: 22px;
+      }
+      .card__note {
+        margin: 12px 0 0;
+        font-size: 13px;
+        color: var(--text-3);
+        text-align: center;
+      }
+
+      footer {
+        padding: 34px 0 44px;
+        border-top: 1px solid var(--line-soft);
+        color: var(--text-3);
+        font-size: 14px;
+      }
+      footer .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      footer a {
+        color: var(--text-2);
+      }
+
+      @media (max-width: 860px) {
+        .hero,
+        .install {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 40px;
+        }
+        .hero {
+          padding: 24px 0 64px;
+        }
+        .shot {
+          justify-self: center;
+        }
+        .flow {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .flow__step + .flow__step {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+        .point {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 8px;
+        }
+        section {
+          padding: 56px 0;
+        }
+      }
+      @media (max-width: 420px) {
+        .wrap {
+          padding: 0 16px;
+        }
+        .btn {
+          width: 100%;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .hero__text,
+        .shot {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <a class="brand" href="./">
+          <img src="assets/icon.png" alt="" width="30" height="30" />
+          Filant Type
+        </a>
+        <a class="toplink" href="https://github.com/F1LANT/filant-type/releases">Все версии</a>
+      </header>
+
+      <main>
+        <div class="hero">
+          <div class="hero__text">
+            <h1>Говорите, а&nbsp;не&nbsp;<em>печатайте</em></h1>
+            <p class="lead">
+              Зажмите клавишу и скажите фразу. Отпустите, и текст появится там, где стоит курсор.
+            </p>
+            <div class="actions">
+              <a class="btn" href="https://github.com/F1LANT/filant-type/releases/latest/download/FilantType-Setup.exe" data-download>Скачать для Windows</a>
+              <a class="btn btn--ghost" href="#install">Как установить</a>
+            </div>
+          </div>
+          <div class="shot">
+            <img src="assets/settings@2x.png" width="460" height="592" alt="Окно настроек Filant Type: клавиша CapsLock, микрофон, модель готова" />
+          </div>
+        </div>
+
+        <section aria-labelledby="how">
+          <h2 id="how">Одна клавиша, три движения</h2>
+          <p class="sub">Работает в любой программе: в игре, в Discord, в браузере, в документе.</p>
+          <div class="flow">
+            <div class="flow__step">
+              <span class="kbd">CapsLock</span>
+              <h3>Зажмите клавишу</h3>
+              <p>CapsLock или любую другую, можно боковую кнопку мыши.</p>
+            </div>
+            <div class="flow__step">
+              <span class="pill"><i class="pill__dot" aria-hidden="true"></i>Говорите…</span>
+              <h3>Скажите фразу</h3>
+              <p>Внизу экрана видно, что идёт запись. До двух минут за раз.</p>
+            </div>
+            <div class="flow__step">
+              <span class="pill">
+                <svg class="pill__ok" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7" /></svg>
+                Вставлено
+              </span>
+              <h3>Отпустите</h3>
+              <p>Текст встанет в поле ввода. Если поля нет, он окажется в буфере обмена.</p>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="why">
+          <h2 id="why">Что внутри</h2>
+          <div class="points">
+            <div class="point">
+              <h3>Без интернета</h3>
+              <p>
+                Речь распознаёт модель GigaAM v3 от Сбера прямо на вашем компьютере. Голос и текст никуда не
+                отправляются, интернет нужен один раз, чтобы скачать модель.
+              </p>
+            </div>
+            <div class="point">
+              <h3>Пишет как человек</h3>
+              <p>
+                Сразу с заглавными буквами и знаками препинания. Слова-паразиты вроде «э-э» и «эм» в текст не
+                попадают.
+              </p>
+            </div>
+            <div class="point">
+              <h3>Слышит только вас</h3>
+              <p>
+                На звуковых картах вроде Apollo или Focusrite пишутся только входы микрофона, а не звук игры и
+                голоса из Discord.
+              </p>
+            </div>
+            <div class="point">
+              <h3>Обновляется сам</h3>
+              <p>
+                Новые версии приходят с GitHub и ставятся, когда вы не диктуете. Каждое обновление подписано, другое
+                программа не установит.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="install" aria-labelledby="install-title">
+          <div class="install">
+            <div>
+              <h2 id="install-title">Установка</h2>
+              <p class="sub">Пара минут, и больше ничего настраивать не нужно.</p>
+              <ol class="steps">
+                <li>
+                  <span><b>Скачайте установщик</b> и запустите его. Права администратора не нужны.</span>
+                </li>
+                <li>
+                  <span>
+                    Если Windows покажет «Windows защитила ваш компьютер», нажмите <b>«Подробнее»</b>, затем
+                    <b>«Выполнить в любом случае»</b>. Так Windows встречает программы без платного сертификата.
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    В открывшемся окне нажмите <b>«Скачать»</b>: модель распознавания весит 892&nbsp;МБ и качается
+                    один раз.
+                  </span>
+                </li>
+                <li>
+                  <span>
+                    Зажмите <b>CapsLock</b> и говорите. Если игра запущена от администратора, запустите Filant Type
+                    тоже от администратора, иначе Windows не передаст ему нажатия.
+                  </span>
+                </li>
+              </ol>
+            </div>
+            <aside class="card" aria-labelledby="reqs">
+              <h3 id="reqs">Что нужно</h3>
+              <ul class="reqs">
+                <li><span>Система</span><span>Windows 10 или 11, 64-бит</span></li>
+                <li><span>Память</span><span>1 ГБ свободной</span></li>
+                <li><span>Диск</span><span>1 ГБ</span></li>
+                <li><span>Версия</span><span data-version>последняя</span></li>
+              </ul>
+              <a class="btn" href="https://github.com/F1LANT/filant-type/releases/latest/download/FilantType-Setup.exe" data-download>Скачать для Windows</a>
+              <p class="card__note" data-size>Установщик около 16&nbsp;МБ</p>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer>
+      <div class="wrap">
+        <span>Filant Type</span>
+        <a href="https://github.com/F1LANT/filant-type/releases">Релизы на GitHub</a>
+      </div>
+    </footer>
+
+    <script>
+      // The newest release's version and installer size, when GitHub answers; the links work without it.
+      fetch('https://api.github.com/repos/F1LANT/filant-type/releases/latest')
+        .then((r) => (r.ok ? r.json() : null))
+        .then((release) => {
+          if (!release) return
+          const version = String(release.tag_name || '').replace(/^v/, '')
+          const asset = (release.assets || []).find((a) => a.name === 'FilantType-Setup.exe')
+          if (version) document.querySelectorAll('[data-version]').forEach((el) => (el.textContent = version))
+          if (asset) {
+            const mb = Math.round(asset.size / 1e6)
+            document.querySelectorAll('[data-size]').forEach((el) => (el.textContent = `Установщик ${mb} МБ`))
+          }
+        })
+        .catch(() => {})
+    </script>
+  </body>
+</html>
