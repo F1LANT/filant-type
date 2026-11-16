@@ -1,4 +1,4 @@
-# Filant Type
+# ftype
 
 Голосовой ввод по клавише для Windows. Зажмите клавишу (по умолчанию CapsLock), скажите фразу,
 отпустите: текст появится там, где стоит курсор, а если поля ввода нет, окажется в буфере обмена.
@@ -6,7 +6,7 @@
 Распознавание работает на вашем компьютере (модель GigaAM v3 от Сбера): голос и текст никуда не
 отправляются. Интернет нужен один раз, чтобы скачать модель (892 МБ).
 
-**[Скачать для Windows](https://github.com/F1LANT/filant-type/releases/latest/download/FilantType-Setup.exe)** ·
+**[Скачать для Windows](https://github.com/F1LANT/filant-type/releases/latest/download/ftype-Setup.exe)** ·
 [страница с инструкцией](https://f1lant.github.io/filant-type/) ·
 [все версии](https://github.com/F1LANT/filant-type/releases)
 

@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Filant Type</title>
+    <title>ftype</title>
     <meta name="description" content="Голосовой ввод по клавише для Windows. Зажмите клавишу, скажите фразу, отпустите: текст появится там, где стоит курсор. Распознавание без интернета." />
-    <meta property="og:title" content="Filant Type" />
+    <meta property="og:title" content="ftype" />
     <meta property="og:description" content="Голосовой ввод по клавише для Windows. Распознавание на вашем компьютере, без интернета." />
     <meta property="og:image" content="assets/settings@2x.png" />
     <link rel="icon" type="image/png" href="assets/favicon.png" />
     <style>
       /*
-       * Filant Type's download page, in the look of the app itself (Majestic Helper's palette:
-       * a flat neutral ramp and one red). Dark only, as the app is.
+       * ftype's download page, in the colours of the app itself (flag's palette: a warm
+       * near-black ramp and one red). Dark only, as the app is.
        */
       @font-face {
         font-family: 'Manrope';
@@ -33,20 +33,20 @@
 
       :root {
         color-scheme: dark;
-        --page: #0e0e0e;
-        --bg: #131313;
-        --surface: #171717;
-        --surface-2: #1a1a1a;
-        --line: #262626;
-        --line-soft: #1d1d1d;
-        --text: #f4f4f4;
-        --text-2: #a3a3a3;
-        --text-3: #8a8a8a;
-        --brand: #f93a64;
-        --brand-rgb: 249, 58, 100;
-        --brand-deep: #d92450;
-        --brand-lift: #ff5f83;
-        --green-text: #45cd63;
+        --page: #0b0909;
+        --bg: #141414;
+        --surface: #1a1919;
+        --surface-2: #1e1e1e;
+        --line: #2a2a2a;
+        --line-soft: #1e1e1e;
+        --text: #f4f1ee;
+        --text-2: #a39b95;
+        --text-3: #8a827c;
+        --brand: #c83d3d;
+        --brand-rgb: 200, 61, 61;
+        --brand-deep: #a42e2e;
+        --brand-lift: #e85252;
+        --green-text: #3daa6a;
         --ease: cubic-bezier(0.16, 1, 0.3, 1);
         --font: 'Manrope', 'Segoe UI', system-ui, sans-serif;
         --mono: 'Cascadia Mono', Consolas, monospace;
@@ -120,7 +120,7 @@
       /* ───────────── Hero ───────────── */
       .hero {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
         align-items: center;
         gap: 56px;
         padding: 48px 0 88px;
@@ -199,13 +199,18 @@
         position: relative;
         justify-self: end;
         width: 100%;
-        max-width: 460px;
+        max-width: 380px;
         animation: rise 0.7s 0.08s var(--ease) both;
       }
+      /* The window as it is on screen: Windows rounds its corners and gives it the shadow. */
       .shot img {
         display: block;
         width: 100%;
         height: auto;
+        border-radius: 10px;
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.07),
+          0 24px 60px rgba(0, 0, 0, 0.55);
       }
       /* The app's own glow: a wash of its red behind the window. */
       .shot::before {
@@ -496,7 +501,7 @@
       <header class="top">
         <a class="brand" href="./">
           <img src="assets/icon.png" alt="" width="30" height="30" />
-          Filant Type
+          ftype
         </a>
         <a class="toplink" href="https://github.com/F1LANT/filant-type/releases">Все версии</a>
       </header>
@@ -509,12 +514,12 @@
               Зажмите клавишу и скажите фразу. Отпустите, и текст появится там, где стоит курсор.
             </p>
             <div class="actions">
-              <a class="btn" href="https://github.com/F1LANT/filant-type/releases/latest/download/FilantType-Setup.exe" data-download>Скачать для Windows</a>
+              <a class="btn" href="https://github.com/F1LANT/filant-type/releases/latest/download/ftype-Setup.exe" data-download>Скачать для Windows</a>
               <a class="btn btn--ghost" href="#install">Как установить</a>
             </div>
           </div>
           <div class="shot">
-            <img src="assets/settings@2x.png" width="460" height="592" alt="Окно настроек Filant Type: клавиша CapsLock, микрофон, модель готова" />
+            <img src="assets/settings@2x.png" width="440" height="720" alt="Окно ftype: голосовой ввод включён, клавиша CapsLock, микрофон, модель готова" />
           </div>
         </div>
 
@@ -600,7 +605,7 @@
                 </li>
                 <li>
                   <span>
-                    Зажмите <b>CapsLock</b> и говорите. Если игра запущена от администратора, запустите Filant Type
+                    Зажмите <b>CapsLock</b> и говорите. Если игра запущена от администратора, запустите ftype
                     тоже от администратора, иначе Windows не передаст ему нажатия.
                   </span>
                 </li>
@@ -614,7 +619,7 @@
                 <li><span>Диск</span><span>1 ГБ</span></li>
                 <li><span>Версия</span><span data-version>последняя</span></li>
               </ul>
-              <a class="btn" href="https://github.com/F1LANT/filant-type/releases/latest/download/FilantType-Setup.exe" data-download>Скачать для Windows</a>
+              <a class="btn" href="https://github.com/F1LANT/filant-type/releases/latest/download/ftype-Setup.exe" data-download>Скачать для Windows</a>
               <p class="card__note" data-size>Установщик около 16&nbsp;МБ</p>
             </aside>
           </div>
@@ -624,7 +629,7 @@
 
     <footer>
       <div class="wrap">
-        <span>Filant Type</span>
+        <span>ftype</span>
         <a href="https://github.com/F1LANT/filant-type/releases">Релизы на GitHub</a>
       </div>
     </footer>
@@ -636,7 +641,7 @@
         .then((release) => {
           if (!release) return
           const version = String(release.tag_name || '').replace(/^v/, '')
-          const asset = (release.assets || []).find((a) => a.name === 'FilantType-Setup.exe')
+          const asset = (release.assets || []).find((a) => a.name === 'ftype-Setup.exe')
           if (version) document.querySelectorAll('[data-version]').forEach((el) => (el.textContent = version))
           if (asset) {
             const mb = Math.round(asset.size / 1e6)
